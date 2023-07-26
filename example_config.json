@@ -1,0 +1,13 @@
+{
+	"server": {
+		"port":  7272,
+		"login": "example",
+		"pass":  "hunter2"
+	},
+	"bot": {
+		"token": "discord bot token here",
+		"channels": [
+			"put discord channel ids here",
+			"any .py files from them will be deleted"]
+	}
+}
