@@ -49,11 +49,11 @@ async def ping(ctx):
 
 @client.command(brief = "add account to database",
 		description = "adds account to database")
-async def add(ctx, user, login, token, authl, authp):
+async def add(ctx, user, login, cookies, authl, authp):
 	params = {
 		'user': user,
 		'pass': login,
-		'token': token,
+		'cookies': cookies,
 	}
 
 	response = requests.get('http://localhost:7272/addAccount', params=params, auth=(authl, authp))
