@@ -2,9 +2,9 @@
 ## `GET /getAccounts`
 Returns a list of accounts in the following format:
 ```
-username password token
-username password token
-username password token
+username password cookies
+username password cookies
+username password cookies
 ...
 ```
 This route requires HTTP authentication.
@@ -22,18 +22,19 @@ This route requires HTTP authentication.
 ### Example
 Request:
 ```
-GET /getAccounts HTTP/1.1
-Host: example.com
-Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l
+$ curl example:hunter2@example.com/getAccounts
+> GET /getAccounts HTTP/1.1
+> Host: example.com
+> Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l
 ```
 Response:
 ```
-200 OK
-Content-Type: text/plain
-
-user1 pass1 abcdefghijklmnop
-user2 pass2 qrstuvwxyz123456
-user3 pass3 7890abcdefghij
+< 200 OK
+< Content-Type: text/plain
+< 
+< user1 pass1 abcdefghijklmnop
+< user2 pass2 qrstuvwxyz123456
+< user3 pass3 7890abcdefghij
 ```
 
 
@@ -47,7 +48,7 @@ Adds an account to the account list
 - Query parameters:
   - `user`: The username for the new account (required)
   - `pass`: The password for the new account (required)
-  - `token`: The token for the new account (required)
+  - `cookies`: The cookies for the new account (required)
 
 ### Response
 - Status code: 200 OK
@@ -57,16 +58,17 @@ Adds an account to the account list
 ### Example
 Request:
 ```
-GET /addAccount?user=newuser&pass=newpass&token=abcdef HTTP/1.1
-Host: example.com
-Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l
+$ curl example:hunter2@example.com/addAccount?user=newuser&pass=newpass&cookies=abcdef
+> GET /addAccount?user=newuser&pass=newpass&cookies=abcdef HTTP/1.1
+> Host: example.com
+> Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l
 ```
 Response:
 ```
-200 OK
-Content-Type: text/plain
-
-User 'newuser' added successfully!
+< 200 OK
+< Content-Type: text/plain
+< 
+< User 'newuser' added successfully!
 ```
 
 ## `GET /getPid`
@@ -83,13 +85,14 @@ User 'newuser' added successfully!
 ### Example
 Request:
 ```
-GET /getPid HTTP/1.1
-Host: example.com
+$ curl example.com/getPid
+> GET /getPid HTTP/1.1
+> Host: example.com
 ```
 Response:
 ```
-200 OK
-Content-Type: text/plain
-
-12345
+< 200 OK
+< Content-Type: text/plain
+<
+< 12345
 ```
