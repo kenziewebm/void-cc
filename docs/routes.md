@@ -57,7 +57,7 @@ Adds an account to the account list
 ### Example
 Request:
 ```
-POST /addAccount?user=newuser&pass=newpass&token=abcdef HTTP/1.1
+GET /addAccount?user=newuser&pass=newpass&token=abcdef HTTP/1.1
 Host: example.com
 Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l
 ```
