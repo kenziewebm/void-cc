@@ -65,7 +65,12 @@ async def add(ctx, user, login, cookies, authl, authp):
 async def get(ctx, user, login):
 	response = requests.get('http://localhost:7272/getAccounts', auth=(user, login))
 	await ctx.message.delete()
-	await ctx.send(response.content.decode())
+	# the fact that i have to download the file is retarded
+	with open('/tmp/BD-accs.txt', 'wb') as f:
+		f.write(response.content)
+	accounts_file = discord.File("/tmp/BD-accs.txt", filename="accounts.txt")
+	await ctx.send(file=accounts_file)
+	os.remove('/tmp/BD-accs.txt') 
 
 @client.command(brief = "restart the bot",
 		description = "restarts the bot")
