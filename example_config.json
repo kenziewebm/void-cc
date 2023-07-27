@@ -6,6 +6,7 @@
 	},
 	"bot": {
 		"token": "discord bot token here",
+		"funny_channel": "id of channel where furry porn is allowed",
 		"channels": [
 			"put discord channel ids here",
 			"any .py files from them will be deleted"]
