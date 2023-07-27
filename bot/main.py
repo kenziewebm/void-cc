@@ -10,7 +10,7 @@ from discord.ext import commands
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = commands.Bot(command_prefix = '.', intents=intents)
+client = commands.Bot(command_prefix = ';', intents=intents)
 
 global TOKEN
 global CHANNEL_IDS
@@ -96,7 +96,7 @@ async def restartserver(ctx):
 
 @client.command(brief = 'i cant use emojis in here but pretend i put a trollface',
                 description = 'trolle')
-async def yiff(ctx):
+async def yiff(ctx, *, tags=str(None)): # retarded
         if ctx.message.channel.id != FUNNY_CHANNEL:
                 await ctx.send("go to horny jail, do not pass go, do not collect 200$")
         else:
@@ -105,7 +105,7 @@ async def yiff(ctx):
                 }
 
                 params = {
-                    'tags': 'rating:e',
+                    'tags': 'rating:e ' + tags,
                     'limit': '10',
                 }
 
@@ -124,5 +124,14 @@ async def yiff(ctx):
                 if post_urls:
                         random_post_url = random.choice(post_urls)
                         await ctx.send(random_post_url)
+
+@client.command(brief = "Runs git pull",
+		description = "Runs git pull")
+async def update(ctx):
+	if int(ctx.message.author.id) == 424254493287251968:
+		os.system("git pull")
+		await ctx.send("done")
+	else:
+		await ctx.send("lolno")
 
 client.run(TOKEN)
