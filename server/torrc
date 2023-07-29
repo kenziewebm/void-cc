@@ -1,0 +1,11 @@
+# Created by voidproxy
+SocksPort 9050
+Log notice file torlog.txt
+DataDirectory tordata
+HiddenServiceDir servicedir
+HiddenServicePort 7273 127.0.0.1:7273
+ORPort 9001
+Nickname PLACEHOLDER-PROXYNAME
+RelayBandwidthRate 5 MB
+RelayBandwidthBurst 10 MB
+ContactInfo PLACEHOLDER-PROXYHOSTER

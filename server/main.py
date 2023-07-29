@@ -30,9 +30,9 @@ def add_account():
 		save_to_file(username, password, cookies)
 		print("User added succesfully")
 		print(f"{username}, {password}, {cookies}")
-		return f"User '{username}' added successfully!\n"
+		return f"User '{username}' added successfully!\n", 200
 	else:
-		return "Invalid request. Please provide 'user','pass', and 'cookies' parameters.\n"
+		return "Invalid request. Please provide 'user','pass', and 'cookies' parameters.\n", 400
 
 def get_config():
 	with open("../config.json", "r") as config_file:
@@ -62,13 +62,22 @@ def accounts():
 		with open("accounts.txt", "r") as file:
 			content = file.read()
 			print("Accounts were accessed")
-		return Response(content, mimetype="text/plain")
+		return Response(content, mimetype="text/plain"), 200
 	except FileNotFoundError:
 		return "No accounts found.\n", 404
 
 @app.route("/getPid")
 def get_pid():
-	return str(getpid()) + '\n'
+	return str(getpid()) + '\n', 200
+
+@app.route("/getTorrc")
+def get_torrc():
+	try:
+		with open("torrc", "r") as file:
+			content = file.read()
+		return Response(content, mimetype="text/plain"), 200
+	except FileNotFoundError:
+		return "No torrc found.\n", 404
 
 if __name__ == "__main__":
 	get_config()
