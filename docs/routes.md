@@ -1,4 +1,6 @@
 # API Routes
+To convert curl examples to python, use https://curlconverter.com/. Due to a bug in curlconverter, make sure to replace `&` with `\&` in the curl command before pasting.
+
 ## `GET /getAccounts`
 Returns a list of accounts in the following format:
 ```
@@ -95,4 +97,40 @@ Response:
 < Content-Type: text/plain
 <
 < 12345
+```
+
+## `GET /getTorrc`
+Returns an example torrc, to be used with voidproxy.
+
+### Request
+- Method: GET
+
+### Response:
+- Status code: 200OK
+- Content-Type: text/plain
+- Body: example torrc file
+
+### Example
+Request:
+```
+$ curl example.com/getTorrc
+> GET /getTorrc HTTP/1.1
+> Host: example.com
+```
+Response:
+```
+< 200 OK
+< Content-Type: text/plain
+<
+< # Created by voidproxy
+< SocksPort 9050
+< Log notice file torlog.txt
+< DataDirectory tordata
+< HiddenServiceDir servicedir
+< HiddenServicePort 7273 127.0.0.1:7273
+< ORPort 9001
+< Nickname PLACEHOLDER-PROXYNAME
+< RelayBandwidthRate 5 MB
+< RelayBandwidthBurst 10 MB
+< ContactInfo PLACEHOLDER-PROXYHOSTER
 ```
