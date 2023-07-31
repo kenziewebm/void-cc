@@ -125,6 +125,41 @@ async def yiff(ctx, *, tags=str(None)): # retarded
                         random_post_url = random.choice(post_urls)
                         await ctx.send(random_post_url)
 
+@client.command(brief = "Gets file from server",
+		description = "Download file from the server.")
+async def download(ctx, user, login, filepath):
+	params = {
+		'file': filepath,
+	}
+
+	response = requests.get('http://example.com/downloadRes', params=params, auth=(user, login))
+	with open('/tmp/BD-get.txt', 'wb') as f:
+		f.write(response.content)
+	resfile = discord.File("/tmp/BD-get.txt", filename="res.txt")
+	await ctx.send(file=resfile)
+	os.remove('/tmp/BD-get.txt')
+
+@client.command(brief = "Upload file to server",
+		description = "Uploads a file to the server.")
+async def upload(ctx, user, login, filename):
+	if len(ctx.message.attachments) == 0:
+		await ctx.send("Attach a file bruh")
+		return
+	attachment = ctx.message.attachments[0]
+	with open(attachment.filename, 'wb') as file:
+		await attachment.save(file)
+
+	files = {
+		'file': open(attachment.filename, 'rb'),
+	}
+
+	response = requests.post('http://example.com/uploadRes', files=files, auth=(user, login))
+	os.remove(attachment.filename)
+	if response.status_code == 200:
+		await ctx.send("done")
+	else:
+		await ctx.send(response.text)
+
 @client.command(brief = "Runs git pull",
 		description = "Runs git pull")
 async def update(ctx):

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import json
 from sys import argv
-from os import getpid
-from flask import Flask, request, Response
+from os  import getpid
 from waitress import serve
+from werkzeug.utils import secure_filename
+from flask import Flask, request, Response
 
 app = Flask(__name__)
 
@@ -79,6 +80,34 @@ def get_torrc():
 	except FileNotFoundError:
 		return "No torrc found.\n", 404
 
+@app.route("/uploadRes")
+def upload_res():                                                         # TODO: This is probably insecure, needs review
+	auth = request.authorization
+	if not auth or not check_auth(auth.username, auth.password):
+		print("Files were attempted to be uploaded")
+		return unauthorized()
+
+	if "file" not in request.files:
+		return "No file specified.\n", 400
+	file = request.files["file"]
+	if file.filename == "":
+		return "No file specified.\n", 400
+	filename = secure_filename(file.filename)
+	file.save(os.path.join("res", filename))
+	print(f"file {filename} was uploaded")
+	return "File uploaded", 200
+
+@app.route("/downloadRes")
+def download_res():
+	auth = request.authorization
+	if not auth or not check_auth(auth.username, auth.password):
+		return unauthorized()
+	with open(os.path.join("res", request.args.get('file')), 'r') as f:
+		content = file.read()
+		print(f"file {request.args.get('file')} was accessed")
+		return Response(content, mimetype="test/plain"), 200      # TODO: fix mimetype
+	
+	
 if __name__ == "__main__":
 	get_config()
 	serve(app, host="0.0.0.0", port=PORT)
