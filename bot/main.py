@@ -98,7 +98,7 @@ async def restartserver(ctx):
                 description = 'trolle')
 async def yiff(ctx, *, tags=str(None)): # retarded
         if ctx.message.channel.id != FUNNY_CHANNEL:
-                await ctx.send("go to horny jail, do not pass go, do not collect 200$")
+                await ctx.send("https://media.discordapp.net/attachments/814794831645114378/834328552761196574/SmartSelect_20210409-183226.jpg")
         else:
                 headers = {
                         'User-Agent': 'the robot we kissed (by breadtard)',
