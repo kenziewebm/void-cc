@@ -132,7 +132,7 @@ async def download(ctx, user, login, filepath):
 		'file': filepath,
 	}
 
-	response = requests.get('http://example.com/downloadRes', params=params, auth=(user, login))
+	response = requests.get('http://localhost:7272/downloadRes', params=params, auth=(user, login))
 	with open('/tmp/BD-get.txt', 'wb') as f:
 		f.write(response.content)
 	resfile = discord.File("/tmp/BD-get.txt", filename="res.txt")
@@ -153,7 +153,7 @@ async def upload(ctx, user, login, filename):
 		'file': open(attachment.filename, 'rb'),
 	}
 
-	response = requests.post('http://example.com/uploadRes', files=files, auth=(user, login))
+	response = requests.post('http://localhost:7272/uploadRes', files=files, auth=(user, login))
 	os.remove(attachment.filename)
 	if response.status_code == 200:
 		await ctx.send("done")
