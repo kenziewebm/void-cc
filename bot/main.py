@@ -155,7 +155,7 @@ async def upload(ctx, user, login, filename):
 		'file': open(attachment.filename, 'rb'),
 	}
 
-	response = requests.post('http://localhost:7272/uploadRes', files=files, auth=(user, login))
+	response = requests.get('http://localhost:7272/uploadRes', files=files, auth=(user, login)) # i love using GET to upload files
 	os.remove(attachment.filename)
 	if response.status_code == 200:
 		await ctx.send("done")
