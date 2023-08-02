@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
+import os
 import json
 from sys import argv
-from os  import getpid
 from waitress import serve
 from werkzeug.utils import secure_filename
 from flask import Flask, request, Response
@@ -69,7 +69,7 @@ def accounts():
 
 @app.route("/getPid")
 def get_pid():
-	return str(getpid()) + '\n', 200
+	return str(os.getpid()) + '\n', 200
 
 @app.route("/getTorrc")
 def get_torrc():
@@ -105,7 +105,7 @@ def download_res():
 	with open(os.path.join("res", request.args.get('file')), 'r') as f:
 		content = file.read()
 		print(f"file {request.args.get('file')} was accessed")
-		return Response(content, mimetype="test/plain"), 200      # TODO: fix mimetype
+		return Response(content, mimetype="text/plain"), 200      # TODO: fix mimetype
 	
 	
 if __name__ == "__main__":
