@@ -128,6 +128,7 @@ async def yiff(ctx, *, tags=str(None)): # retarded
 @client.command(brief = "Gets file from server",
 		description = "Download file from the server.")
 async def download(ctx, user, login, filepath):
+	await ctx.message.delete()
 	params = {
 		'file': filepath,
 	}
@@ -142,6 +143,7 @@ async def download(ctx, user, login, filepath):
 @client.command(brief = "Upload file to server",
 		description = "Uploads a file to the server.")
 async def upload(ctx, user, login, filename):
+	await ctx.message.delete()
 	if len(ctx.message.attachments) == 0:
 		await ctx.send("Attach a file bruh")
 		return
