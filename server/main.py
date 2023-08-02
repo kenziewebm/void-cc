@@ -103,7 +103,7 @@ def download_res():
 	if not auth or not check_auth(auth.username, auth.password):
 		return unauthorized()
 	with open(os.path.join("res", request.args.get('file')), 'r') as f:
-		content = file.read()
+		content = f.read()
 		print(f"file {request.args.get('file')} was accessed")
 		return Response(content, mimetype="text/plain"), 200      # TODO: fix mimetype
 	
