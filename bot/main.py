@@ -136,7 +136,7 @@ async def download(ctx, user, login, filepath):
 	response = requests.get('http://localhost:7272/downloadRes', params=params, auth=(user, login))
 	with open('/tmp/BD-get.txt', 'wb') as f:
 		f.write(response.content)
-	resfile = discord.File("/tmp/BD-get.txt", filename="res.txt")
+	resfile = discord.File("/tmp/BD-get.txt", filename=filepath)
 	await ctx.send(file=resfile)
 	os.remove('/tmp/BD-get.txt')
 
