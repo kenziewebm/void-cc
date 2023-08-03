@@ -124,8 +124,8 @@ async def yiff(ctx, *, tags=str(None)): # retarded
                 if post_urls:
                         random_post_url = random.choice(post_urls)
                         await ctx.send(random_post_url)
-		else:
-			await ctx.send("I bring the most unfortunate news. No results found.")
+                else:
+                        await ctx.send("I bring the most unfortunate news. No results found.")
 
 @client.command(brief = "Gets file from server",
 		description = "Download file from the server.")
