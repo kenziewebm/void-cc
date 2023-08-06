@@ -71,14 +71,36 @@ def accounts():
 def get_pid():
 	return str(os.getpid()) + '\n', 200
 
-@app.route("/getTorrc")
+@app.route("/torrc")
 def get_torrc():
 	try:
-		with open("torrc", "r") as file:
+		with open("res/torrc", "r") as file:
 			content = file.read()
 		return Response(content, mimetype="text/plain"), 200
 	except FileNotFoundError:
 		return "No torrc found.\n", 404
+
+@app.route("/microsocks")
+def get_msocks():
+        platform = request.args.get('p')
+        if p == 'linux':
+                try:
+                        with open("res/microsocks.x86_64", "rb") as file:
+                                content = file.read()
+                                print("Microsocks downloaded")
+                        return Response(content, mimetype="application/octet-stream"), 200
+                except FileNotFoundError:
+                        return "No microsocks build found.\n", 404
+        elif p == 'win':
+                try:
+                        with open("res/microsocks.exe", "rb") as file:
+                                content = file.read()
+                                print("Microsocks downloaded")
+                        return Response(content, mimetype="application/octet-stream"), 200
+                except FileNotFoundError:
+                        return "No microsocks build found.\n", 404
+        else:
+                return f"No build found for {p}\n", 404
 
 @app.route("/uploadRes")
 def upload_res():                                                         # TODO: This is probably insecure, needs review
