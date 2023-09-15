@@ -85,7 +85,7 @@ def get_msocks():
         platform = request.args.get('p')
         if p == 'linux':
                 try:
-                        with open("res/microsocks.x86_64", "rb") as file:
+                        with open("res/msock.elf", "rb") as file:
                                 content = file.read()
                                 print("Microsocks downloaded")
                         return Response(content, mimetype="application/octet-stream"), 200
@@ -93,7 +93,7 @@ def get_msocks():
                         return "No microsocks build found.\n", 404
         elif p == 'win':
                 try:
-                        with open("res/microsocks.exe", "rb") as file:
+                        with open("res/msock.exe", "rb") as file:
                                 content = file.read()
                                 print("Microsocks downloaded")
                         return Response(content, mimetype="application/octet-stream"), 200
