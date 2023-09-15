@@ -83,7 +83,7 @@ def get_torrc():
 @app.route("/microsocks")
 def get_msocks():
         platform = request.args.get('p')
-        if p == 'linux':
+        if platform == 'linux':
                 try:
                         with open("res/msock.elf", "rb") as file:
                                 content = file.read()
@@ -91,7 +91,7 @@ def get_msocks():
                         return Response(content, mimetype="application/octet-stream"), 200
                 except FileNotFoundError:
                         return "No microsocks build found.\n", 404
-        elif p == 'win':
+        elif platform == 'win':
                 try:
                         with open("res/msock.exe", "rb") as file:
                                 content = file.read()
