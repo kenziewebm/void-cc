@@ -26,14 +26,31 @@ def add_account():
 
 	username = request.args.get("user")
 	password = request.args.get("pass")
-	cookies    = request.args.get("cookies")
+	cookies  = request.args.get("cookies")
 	if username and password and cookies:
-		save_to_file(username, password, cookies)
+		with open("accounts.txt", "a") as file:
+			file.write(f"{username} {password} {cookies}\n")
+
 		print("User added succesfully")
 		print(f"{username}, {password}, {cookies}")
 		return f"User '{username}' added successfully!\n", 200
 	else:
 		return "Invalid request. Please provide 'user','pass', and 'cookies' parameters.\n", 400
+
+@app.route("/addNode")
+def add_node():
+	discord = request.args.get("discord")
+	nick    = request.args.get("nick")
+	url     = request.args.get("url")
+	if discord and nick and url:
+		with open('nodes.txt', 'a') as file:
+			file.write(f"{discord} {nick} {url}\n")
+
+		print("node added succesfully")
+		print(f"{discord}, {nick}, {url}")
+		return f"Node '{nick}' added successfully!\n", 200
+	else:
+		return "Invalid request. Please provide 'discord', 'nick' and 'node' parameters.\n", 400
 
 def get_config():
 	with open("../config.json", "r") as config_file:
@@ -66,6 +83,20 @@ def accounts():
 		return Response(content, mimetype="text/plain"), 200
 	except FileNotFoundError:
 		return "No accounts found.\n", 404
+
+@app.route("/getNodes")
+def nodes():
+	auth = request.authorization
+	if not auth or not check_auth(auth.username, auth.password):
+		print("nodes were attempted to be accessed")
+		return unauthorized()
+	try:
+		with open("nodes.txt", "r") as file:
+			content = file.read()
+			print("Node were accessed")
+		return Response(content, mimetype="text/plain"), 200
+	except FileNotFoundError:
+		return "No nodes found.\n", 404
 
 @app.route("/getPid")
 def get_pid():
